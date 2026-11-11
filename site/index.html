@@ -28,6 +28,11 @@ main.page[data-data-app-content="dashboard"]{--data-app-content-width:var(--data
 [data-data-status] button:focus-visible{outline:2px solid currentColor;outline-offset:3px}
 [data-data-status] textarea{box-sizing:border-box;width:100%;max-width:640px;min-height:160px;resize:vertical;font:12px/1.5 monospace;color:inherit;background:transparent;border:1px solid currentColor;border-radius:6px;padding:8px}
 </style>
+<style id="public-read-only-controls">
+/* Public portfolio export: keep visitor controls read-only. */
+.dashboard-publish-button { display: none !important; }
+.dashboard-header-action-menu .dashboard-mobile-menu-group:first-child { display: none !important; }
+</style>
 </head>
 <body>
 <div id="root" style="min-height:420px"><div data-data-status role="status">Loading dashboard…</div></div>
@@ -375,7 +380,7 @@ stage="data";
 const snapshotElement = document.getElementById("data-app-reviewed-snapshot");
 const continuation = document.querySelectorAll('script[data-app-snapshot-chunk]');
 const reviewedSnapshot = continuation.length ? (() => { const parser = runtime.createStreamingJsonParser(); parser.write(snapshotElement.textContent); for (const chunk of continuation) parser.write(chunk.textContent); return parser.finish(); })() : JSON.parse(snapshotElement.textContent);
-const mount = (snapshot, hosted = false) => runtime.mount({reviewedSnapshot: snapshot, hosted, createContent: (snapshot) => (function(__dataAuthoredRuntime, __dataAuthoredSnapshot) {
+const mount = (snapshot, hosted = false) => runtime.mount({reviewedSnapshot: snapshot, hosted, staticDemo: true, createContent: (snapshot) => (function(__dataAuthoredRuntime, __dataAuthoredSnapshot) {
 "use strict";
 const __dataAuthoredData = Object.create(null);
 Object.defineProperty(__dataAuthoredData, "__esModule", {value:true});
